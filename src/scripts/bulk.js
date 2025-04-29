@@ -19,6 +19,7 @@ const {
   getNow,
 } = require("@pittica/google-business-intelligence-helpers")
 const log = require("@pittica/logger-helpers")
+const { sort } = require("../helpers/storage")
 const { process } = require("./day")
 
 /**
@@ -50,7 +51,7 @@ exports.bulk = async (source, temporary, destination) => {
         bucketSource,
         bucketTemporary,
         bucketDestination,
-        files,
+        sort(files),
         now
       )
     })

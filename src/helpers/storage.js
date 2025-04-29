@@ -12,40 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const path = require("path")
-
 /**
- * Configuration.
+ * Sorts the given files.
  *
- * @param {object} config Configuration parameters.
+ * @param {Array} files An array of file data.
+ * @returns The sorted files.
  */
-exports.config = (config = {}) => {
-  const initial = {
-    bucket: {
-      upload: "upload",
-      temporary: "temp",
-      archive: "archive",
-    },
-    pubSub: {
-      message: "upload",
-    },
-    dataset: {
-      temporary: {
-        name: "tmp",
-        prefix: "tmp_csv_",
-      },
-    },
-    files: {
-      json: path.join(process.cwd(), "json"),
-      sql: path.join(process.cwd(), "sql"),
-    },
-    order: [],
-  }
+exports.sort = (files) =>
+  files.sort((a, b) => {
+    const first = config.order.indexOf(a.name)
+    const second = config.order.indexOf(b.name)
 
-  global.config = {
-    ...initial,
-    ...config,
-  }
+    if (first < second) {
+      return -1
+    } else if (first > second) {
+      return 1
+    }
 
-  return global.config
-}
+    if (a.date < b.date) {
+      return -1
+    } else if (a.date > b.date) {
+      return 1
+    }
+
+    if (a.version < a.version) {
+      return -1
+    } else if (b.version > b.version) {
+      return 1
+    }
+
+    return 0
+  })

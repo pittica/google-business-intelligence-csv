@@ -37,6 +37,7 @@ const {
 } = require("@pittica/google-business-intelligence-helpers")
 const log = require("@pittica/logger-helpers")
 const { getJobMetadata } = require("../helpers/bigquery")
+const { sort } = require("../helpers/storage")
 
 /**
  * Processes all CSV files in given buckets bucket for the given date.
@@ -79,7 +80,7 @@ exports.run = async (day, now, source, temporary, destination) => {
       bucketSource,
       bucketTemporary,
       bucketDestination,
-      mapStorageResponse(response, config.files.sql),
+      sort(mapStorageResponse(response, config.files.sql)),
       now
     )
   )
