@@ -11,7 +11,7 @@ CSV importer for business intelligence for Google Cloud.
 
 This project is licensed.
 
-Copyright 2025 **Pittica S.r.l.**.
+Copyright 2024-2026 **Pittica S.r.l.**.
 
 - [pittica.com](https://pittica.com)
 - [info@pittica.com](mailto:info@pittica.com)

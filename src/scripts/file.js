@@ -1,4 +1,4 @@
-// Copyright 2024-2025 Pittica S.r.l.
+// Copyright 2024-2026 Pittica S.r.l.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -66,7 +66,9 @@ exports.file = async (
           if (file !== null) {
             deleteFile(source)
 
-            const ds = await getDataset(config.dataset.temporary.name)
+            const ds = await getDataset(config.dataset.temporary.name, {
+              location: config.dataset.temporary.location,
+            })
             const day = getNow()
             const table = await ds.table(
               getTemporaryTableName(filedata, config.dataset.temporary.prefix)
