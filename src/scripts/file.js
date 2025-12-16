@@ -117,7 +117,10 @@ exports.run = async (
   const storage = getStorage()
 
   return await table
-    .load(file, getJobMetadata(filedata.name))
+    .load(
+      file,
+      getJobMetadata(filedata.name, config.dataset.temporary.location)
+    )
     .then(async (response) => {
       if (jobDone(response)) {
         return await file

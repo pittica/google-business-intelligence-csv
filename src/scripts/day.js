@@ -127,7 +127,7 @@ exports.process = (
           )
 
           table
-            .load(temp, getJobMetadata(filedata.name))
+            .load(temp, getJobMetadata(filedata.name, config.dataset.temporary.location))
             .then((response) => {
               if (jobDone(response)) {
                 getSafeFilenameFromBucket(

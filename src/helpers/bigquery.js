@@ -19,7 +19,8 @@ const { getSchema } = require("@pittica/google-business-intelligence-helpers")
  * Gets BigQuery load job default metadata.
  *
  * @param {string} filename Filename.
+ * @param {string} location Dataset location.
  * @returns {JobLoadMetadata} BigQuery base metadata.
  */
-exports.getJobMetadata = (filename) =>
-  jobMetadata(getSchema(filename, config.files.json))
+exports.getJobMetadata = (filename, location = "us-central1") =>
+  jobMetadata(getSchema(filename, config.files.json), location)
