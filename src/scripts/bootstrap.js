@@ -12,16 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { bulk } = require("./scripts/bulk")
-const { day } = require("./scripts/day")
-const { file } = require("./scripts/file")
-const { bootstrap } = require("./scripts/bootstrap")
-const { config } = require("./config")
+const { executeSqlFolder } = require("@pittica/google-bigquery-helpers")
 
-exports.config = config
-exports.scripts = {
-  bulk,
-  day,
-  file,
-  bootstrap,
-}
+/**
+ * Processes a the files from the configuration.
+ *
+ * @returns {boolean} A value indicating whether the process has been done.
+ */
+exports.bootstrap = async () =>
+  config.files.bootstrap
+    ? executeSqlFolder(config.files.bootstrap, config.bootstrap)
+    : false

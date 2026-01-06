@@ -39,8 +39,10 @@ exports.config = (config = {}) => {
     files: {
       json: path.join(process.cwd(), "json"),
       sql: path.join(process.cwd(), "sql"),
+      bootstrap: null,
     },
     order: [],
+    bootstrap: [],
   }
 
   global.config = {
