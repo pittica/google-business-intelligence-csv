@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const { file } = require("./file")
+const { bulk } = require("./bulk")
+
 /**
  * Processes all CSV files in upload bucket bucket or the given file.
  *
  * @param {string} filename Element name.
  */
-exports.process = async (filename) =>
+exports.csv = async (filename) =>
   filename ? await file(filename) : await bulk()
