@@ -16,6 +16,11 @@ const { bulk } = require("./scripts/bulk")
 const { day } = require("./scripts/day")
 const { file } = require("./scripts/file")
 const { bootstrap } = require("./scripts/bootstrap")
+const { upload } = require("./scripts/upload")
+const { clean } = require("./scripts/clean")
+const { pubSub } = require("./scripts/pub-sub")
+const { rollback } = require("./scripts/rollback")
+const { unlistened } = require("./scripts/unlistened")
 const { config } = require("./config")
 
 exports.config = config
@@ -24,4 +29,9 @@ exports.scripts = {
   day,
   file,
   bootstrap,
+  upload,
+  clean,
+  pubSub,
+  rollback,
+  unlistened,
 }
