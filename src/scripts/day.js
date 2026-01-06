@@ -34,6 +34,7 @@ const {
   mergeFiledata,
   getNow,
   formatDate,
+  stringToDate,
 } = require("@pittica/google-business-intelligence-helpers")
 const log = require("@pittica/logger-helpers")
 const { getJobMetadata } = require("../helpers/bigquery")
@@ -47,14 +48,25 @@ const { sort } = require("../helpers/storage")
  * @param {string} temporary Temporary bucket.
  * @param {string} destination Destination bucket.
  */
-exports.day = async (date, source, temporary, destination) => {
+exports.day = async (
+  date,
+  source = null,
+  temporary = null,
+  destination = null
+) => {
   if (date) {
-    const day = formatDate(date)
+    const day = formatDate(typeof date === "string" ? stringToDate(date) : date)
     const now = getNow()
 
     log.info(`Starting "${day}" day import...`)
 
-    this.run(day, now, source, temporary, destination)
+    this.run(
+      day,
+      now,
+      source ?? config.bucket.upload,
+      temporary ?? config.bucket.temporary,
+      destination ?? config.bucket.archive
+    )
   }
 }
 
@@ -127,7 +139,10 @@ exports.process = (
           )
 
           table
-            .load(temp, getJobMetadata(filedata.name, config.dataset.temporary.location))
+            .load(
+              temp,
+              getJobMetadata(filedata.name, config.dataset.temporary.location)
+            )
             .then((response) => {
               if (jobDone(response)) {
                 getSafeFilenameFromBucket(

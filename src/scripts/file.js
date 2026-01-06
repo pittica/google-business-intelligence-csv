@@ -46,20 +46,22 @@ const { getJobMetadata } = require("../helpers/bigquery")
  */
 exports.file = async (
   name,
-  bucketSource,
-  bucketTemporary,
-  bucketDestination,
+  bucketSource = null,
+  bucketTemporary = null,
+  bucketDestination = null,
   clean = true
 ) => {
   const filedata = splitName(name)
 
   if (isDataCsv(filedata, config.files.json)) {
     const storage = getStorage()
-    const source = storage.bucket(bucketSource).file(name)
+    const source = storage
+      .bucket(bucketSource ?? config.bucket.upload)
+      .file(name)
     const [exists] = await source.exists()
 
     if (exists) {
-      return await copyFile(source, bucketTemporary)
+      return await copyFile(source, bucketTemporary ?? config.bucket.temporary)
         .then(async (response) => {
           const file = copiedFile(response)
 
@@ -76,7 +78,7 @@ exports.file = async (
 
             return await this.run(
               table,
-              bucketDestination,
+              bucketDestination ?? config.bucket.archive,
               file,
               filedata,
               day,

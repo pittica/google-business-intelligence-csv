@@ -29,19 +29,22 @@ const { process } = require("./day")
  * @param {string} temporary Temporary bucket.
  * @param {string} destination Destination bucket.
  */
-exports.bulk = async (source, temporary, destination) => {
+exports.bulk = async (source = null, temporary = null, destination = null) => {
   const storage = getStorage()
   const dataset = await getDataset(config.dataset.temporary.name, {
     location: config.dataset.temporary.location,
   })
-  const bucketSource = await storage.bucket(source)
-  const bucketTemporary = await storage.bucket(temporary)
-  const bucketDestination = await storage.bucket(destination)
+  const bucketSource = await storage.bucket(source ?? config.bucket.upload)
+  const bucketTemporary = await storage.bucket(
+    temporary ?? config.bucket.temporary
+  )
+  const bucketDestination = await storage.bucket(
+    destination ?? config.bucket.archive
+  )
 
   const now = getNow()
 
-  storage
-    .bucket(source)
+  bucketSource
     .getFiles()
     .then((response) => {
       log.info(`Starting bulk import...`)
