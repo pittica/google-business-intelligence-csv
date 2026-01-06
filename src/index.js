@@ -15,6 +15,7 @@
 const { bulk } = require("./scripts/bulk")
 const { day } = require("./scripts/day")
 const { file } = require("./scripts/file")
+const { process } = require("./scripts/process")
 const { bootstrap } = require("./scripts/bootstrap")
 const { upload } = require("./scripts/upload")
 const { clean } = require("./scripts/clean")
@@ -28,6 +29,7 @@ exports.scripts = {
   bulk,
   day,
   file,
+  process,
   bootstrap,
   upload,
   clean,
