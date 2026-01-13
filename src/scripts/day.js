@@ -60,7 +60,7 @@ exports.day = async (
 
     log.info(`Starting "${day}" day import...`)
 
-    this.run(
+    exports.run(
       day,
       now,
       source ?? config.bucket.upload,
@@ -89,7 +89,7 @@ exports.run = async (day, now, source, temporary, destination) => {
   const bucketDestination = await storage.bucket(destination)
 
   getFiles(storage, source, `${day}-`).then((response) =>
-    this.process(
+    exports.process(
       dataset,
       bucketSource,
       bucketTemporary,

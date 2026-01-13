@@ -76,7 +76,7 @@ exports.file = async (
               getTemporaryTableName(filedata, config.dataset.temporary.prefix)
             )
 
-            return await this.run(
+            return await exports.run(
               table,
               bucketDestination ?? config.bucket.archive,
               file,
