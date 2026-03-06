@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const { config } = require("@pittica/google-business-intelligence-configuration")
 const { bulk } = require("./scripts/bulk")
 const { day } = require("./scripts/day")
 const { file } = require("./scripts/file")
@@ -22,7 +23,6 @@ const { clean } = require("./scripts/clean")
 const { pubSub } = require("./scripts/pub-sub")
 const { rollback } = require("./scripts/rollback")
 const { unlistened } = require("./scripts/unlistened")
-const { config } = require("./config")
 
 exports.config = config
 exports.scripts = {
