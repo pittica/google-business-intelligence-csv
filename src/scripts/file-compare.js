@@ -13,6 +13,7 @@
 
 const {
   getFormattedDate,
+  splitName,
   scripts: { comparison },
 } = require("@pittica/google-business-intelligence-helpers")
 const { warn } = require("@pittica/logger-helpers")
@@ -25,18 +26,20 @@ const { warn } = require("@pittica/logger-helpers")
  */
 exports.fileCompare = async (date = null) => {
   const day = getFormattedDate(date)
-  const files = await comparison(config.bucket.upload, day).catch((err) => {
-    warn(err.message)
-    return []
-  })
+  const files = await comparison(config.bucket.upload, day)
+    .then((results) =>
+      results.filter((file) => config.files.safe.includes(splitName(file).name))
+    )
+    .catch((err) => {
+      warn(err.message)
+      return []
+    })
 
   if (files.length > 0) {
     warn(
       `Missing files: ${files.map((file) => `"${file}"`).join(", ")}. Day: ${day}`
     )
-
     return false
   }
-
   return true
 }

@@ -1,7 +1,7 @@
 {
   "name": "@pittica/google-business-intelligence-csv",
   "private": false,
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "CSV importer for business intelligence for Google Cloud.",
   "main": "dist/index.js",
   "scripts": {
