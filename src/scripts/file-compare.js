@@ -25,11 +25,14 @@ const { warn } = require("@pittica/logger-helpers")
  */
 exports.fileCompare = async (date = null) => {
   const day = getFormattedDate(date)
-  const files = await comparison(config.bucket.upload, day)
+  const files = await comparison(config.bucket.upload, day).catch((err) => {
+    warn(err.message)
+    return []
+  })
 
   if (files.length > 0) {
     warn(
-      `Files: ${files.map((file) => `"${file}"`).join(", ")}. Day: ${day}`
+      `Missing files: ${files.map((file) => `"${file}"`).join(", ")}. Day: ${day}`
     )
 
     return false

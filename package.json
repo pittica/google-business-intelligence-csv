@@ -1,7 +1,7 @@
 {
   "name": "@pittica/google-business-intelligence-csv",
   "private": false,
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "CSV importer for business intelligence for Google Cloud.",
   "main": "dist/index.js",
   "scripts": {
@@ -24,16 +24,16 @@
     "url": "https://github.com/pittica/google-business-intelligence-csv/issues"
   },
   "homepage": "https://github.com/pittica/google-business-intelligence-csv",
+  "engines": {
+    "node": ">=24.11.0"
+  },
   "dependencies": {
     "@pittica/google-bigquery-helpers": "^1.4.8",
     "@pittica/google-business-intelligence-configuration": "^1.0.3",
-    "@pittica/google-business-intelligence-helpers": "^1.14.0",
+    "@pittica/google-business-intelligence-helpers": "^1.14.1",
     "@pittica/google-cloud-storage-helpers": "^1.5.0",
     "@pittica/logger-helpers": "^1.2.2",
     "date-and-time": "^4.6.0"
-  },
-  "engines": {
-    "node": ">=24.11.0"
   },
   "devDependencies": {
     "@babel/cli": "^8.0.6",
