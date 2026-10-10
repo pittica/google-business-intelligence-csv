@@ -12,10 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { config } = require("@pittica/google-business-intelligence-configuration")
+const {
+  config,
+} = require("@pittica/google-business-intelligence-configuration")
 const { bulk } = require("./scripts/bulk")
 const { day } = require("./scripts/day")
 const { file } = require("./scripts/file")
+const { fileScan } = require("./scripts/file-scan")
+const { fileCompare } = require("./scripts/file-compare")
 const { csv } = require("./scripts/csv")
 const { bootstrap } = require("./scripts/bootstrap")
 const { upload } = require("./scripts/upload")
@@ -29,6 +33,8 @@ exports.scripts = {
   bulk,
   day,
   file,
+  fileScan,
+  fileCompare,
   csv,
   bootstrap,
   upload,

@@ -43,7 +43,7 @@ const { sort } = require("../helpers/storage")
 /**
  * Processes all CSV files in given buckets bucket for the given date.
  *
- * @param {Date} date Element date.
+ * @param {string|Date} date Element date.
  * @param {string} source Source bucket.
  * @param {string} temporary Temporary bucket.
  * @param {string} destination Destination bucket.
