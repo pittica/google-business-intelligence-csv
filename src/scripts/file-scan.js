@@ -30,13 +30,15 @@ exports.fileScan = async (date = null) => {
     .catch(() => [])
   const check = config.order.filter(
     (file) =>
+      config.files.safe.includes(file) &&
       !files.some(
         ({ name, extension }) =>
           name === file && extension.toUpperCase() === "CSV"
       )
   )
-
   if (check.length > 1) {
-    warn(check)
+    warn(
+      `Missing files: ${check.map((file) => `"${file}"`).join(", ")}. Day: ${day}`
+    )
   }
 }

@@ -21,13 +21,16 @@ const { warn } = require("@pittica/logger-helpers")
  * Compares files for the specified date.
  *
  * @param {Date|string} date Date to compare files for.
- * @returns {Promise<boolean>} A value indicating whether the files are consistent  or not.
+ * @returns {Promise<boolean>} A value indicating whether the files are consistent or not.
  */
 exports.fileCompare = async (date = null) => {
-  const files = await comparison("er-go-nempos-upload", getFormattedDate(date))
+  const day = getFormattedDate(date)
+  const files = await comparison(config.bucket.upload, day)
 
   if (files.length > 0) {
-    warn(files)
+    warn(
+      `Files: ${files.map((file) => `"${file}"`).join(", ")}. Day: ${day}`
+    )
 
     return false
   }
