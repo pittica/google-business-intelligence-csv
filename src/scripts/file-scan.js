@@ -11,11 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 
+const { listFiles } = require("@pittica/google-cloud-storage-helpers")
 const {
-  listFiles,
+  splitName,
   getFormattedDate,
-} = require("@pittica/google-cloud-storage-helpers")
-const { splitName } = require("@pittica/google-business-intelligence-helpers")
+} = require("@pittica/google-business-intelligence-helpers")
 const { warn } = require("@pittica/logger-helpers")
 
 /**
