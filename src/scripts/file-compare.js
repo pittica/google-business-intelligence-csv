@@ -37,9 +37,11 @@ exports.fileCompare = async (date = null) => {
 
   if (files.length > 0) {
     warn(
-      `Missing files: ${files.map((file) => `"${file}"`).join(", ")}. Day: ${day}`
+      `Missing files: ${files.map((file) => `"${file}"`).join(", ")}. Day: ${day}.`
     )
+
     return false
   }
+
   return true
 }

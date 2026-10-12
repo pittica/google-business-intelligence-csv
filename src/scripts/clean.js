@@ -18,4 +18,7 @@ const { cleanDataset } = require("@pittica/google-bigquery-helpers")
  *
  * @returns {void}
  */
-exports.clean = async () => await cleanDataset(config.dataset.temporary.name)
+exports.clean = async () =>
+  await cleanDataset(config.dataset.temporary.name, ".*", {
+    projectId: config.projectId,
+  })

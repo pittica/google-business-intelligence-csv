@@ -70,6 +70,7 @@ exports.file = async (
 
             const ds = await getDataset(config.dataset.temporary.name, {
               location: config.dataset.temporary.location,
+              projectId: config.projectId,
             })
             const day = getNow()
             const table = await ds.table(

@@ -83,6 +83,7 @@ exports.run = async (day, now, source, temporary, destination) => {
   const storage = getStorage()
   const dataset = await getDataset(config.dataset.temporary.name, {
     location: config.dataset.temporary.location,
+    projectId: config.projectId,
   })
   const bucketSource = await storage.bucket(source)
   const bucketTemporary = await storage.bucket(temporary)

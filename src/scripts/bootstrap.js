@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { executeSqlFolder } = require("@pittica/google-bigquery-helpers")
+const {
+  executeSqlFolder,
+  getClient,
+} = require("@pittica/google-bigquery-helpers")
 
 /**
  * Processes a the files from the configuration.
@@ -21,5 +24,9 @@ const { executeSqlFolder } = require("@pittica/google-bigquery-helpers")
  */
 exports.bootstrap = async () =>
   config.files.bootstrap
-    ? executeSqlFolder(config.files.bootstrap, config.bootstrap)
+    ? executeSqlFolder(
+        config.files.bootstrap,
+        config.bootstrap,
+        getClient({ projectId: config.projectId })
+      )
     : false

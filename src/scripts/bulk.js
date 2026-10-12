@@ -33,6 +33,7 @@ exports.bulk = async (source = null, temporary = null, destination = null) => {
   const storage = getStorage()
   const dataset = await getDataset(config.dataset.temporary.name, {
     location: config.dataset.temporary.location,
+    projectId: config.projectId,
   })
   const bucketSource = await storage.bucket(source ?? config.bucket.upload)
   const bucketTemporary = await storage.bucket(

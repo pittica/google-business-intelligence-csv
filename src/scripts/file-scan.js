@@ -38,7 +38,7 @@ exports.fileScan = async (date = null) => {
   )
   if (check.length > 1) {
     warn(
-      `Missing files: ${check.map((file) => `"${file}"`).join(", ")}. Day: ${day}`
+      `Missing files: ${check.map((file) => `"${file}"`).join(", ")}. Day: ${day}.`
     )
   }
 }
