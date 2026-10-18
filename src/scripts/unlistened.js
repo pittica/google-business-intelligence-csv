@@ -16,7 +16,7 @@ const {
 } = require("@pittica/google-business-intelligence-helpers")
 
 /**
- * Removes all not allowed files in "nempos-upload" bucket.
+ * Removes all not allowed files in upload bucket.
  *
  * @returns {void}
  */

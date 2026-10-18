@@ -16,6 +16,7 @@ const {
   config,
 } = require("@pittica/google-business-intelligence-configuration")
 const { bulk } = require("./scripts/bulk")
+const { bulkUnlistened } = require("./scripts/bulk-unlistened")
 const { day } = require("./scripts/day")
 const { file } = require("./scripts/file")
 const { fileScan } = require("./scripts/file-scan")
@@ -31,6 +32,7 @@ const { unlistened } = require("./scripts/unlistened")
 exports.config = config
 exports.scripts = {
   bulk,
+  bulkUnlistened,
   day,
   file,
   fileScan,
