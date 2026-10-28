@@ -14,7 +14,6 @@
 
 const {
   getDataset,
-  executeSqlFile,
   jobDone,
   logErrors,
 } = require("@pittica/google-bigquery-helpers")
@@ -25,9 +24,7 @@ const {
   getFiles,
 } = require("@pittica/google-cloud-storage-helpers")
 const {
-  getSqlFilePath,
   createFilename,
-  getTemporaryTableSuffix,
   getTemporaryTableName,
   mapStorageResponse,
   getSafeFilenameFromBucket,
@@ -37,7 +34,7 @@ const {
   stringToDate,
 } = require("@pittica/google-business-intelligence-helpers")
 const log = require("@pittica/logger-helpers")
-const { getJobMetadata } = require("../helpers/bigquery")
+const { getJobMetadata, executeSqlFile } = require("../helpers/bigquery")
 const { sort } = require("../helpers/storage")
 
 /**
@@ -80,7 +77,7 @@ exports.day = async (
  * @param {string} destination Destination bucket.
  */
 exports.run = async (day, now, source, temporary, destination) => {
-  const storage = getStorage()
+  const storage = getStorage(config.projectId)
   const dataset = await getDataset(config.dataset.temporary.name, {
     location: config.dataset.temporary.location,
     projectId: config.projectId,
@@ -159,16 +156,7 @@ exports.process = (
                       if (copy) {
                         deleteFile(temp)
 
-                        executeSqlFile(
-                          getSqlFilePath(filedata.name, config.files),
-                          dataset.bigQuery,
-                          {
-                            table_suffix:
-                              filedata.version +
-                              "-" +
-                              getTemporaryTableSuffix(filedata.date),
-                          }
-                        )
+                        executeSqlFile(filedata, dataset.bigQuery)
                           .then((result) => {
                             if (result) {
                               log.success(`"${filedata.fullname}" imported...`)

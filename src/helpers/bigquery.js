@@ -12,8 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { jobMetadata } = require("@pittica/google-bigquery-helpers")
-const { getSchema } = require("@pittica/google-business-intelligence-helpers")
+const {
+  jobMetadata,
+  executeSqlFile,
+} = require("@pittica/google-bigquery-helpers")
+const {
+  getSchema,
+  getTemporaryTableSuffix,
+  getSqlFilePath,
+} = require("@pittica/google-business-intelligence-helpers")
 
 /**
  * Gets BigQuery load job default metadata.
@@ -26,3 +33,16 @@ exports.getJobMetadata = (
   filename,
   location = config.location ?? "us-central1"
 ) => jobMetadata(getSchema(filename, config.files.json), location)
+
+/**
+ * Executes a SQL file in BigQuery.
+ *
+ * @param {object} filedata File data.
+ * @param {BigQuery} client BigQuery client.
+ * @returns {Promise} Promise resolving to the execution result.
+ */
+exports.executeSqlFile = (filedata, client) =>
+  executeSqlFile(getSqlFilePath(filedata.name, config.files), client, {
+    table_suffix:
+      filedata.version + "-" + getTemporaryTableSuffix(filedata.date),
+  })

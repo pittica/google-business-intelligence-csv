@@ -20,9 +20,8 @@ const log = require("@pittica/logger-helpers")
  * Processes all CSV files in upload bucket bucket then removes not allowed files.
  */
 exports.bulkUnlistened = async () => {
-  await bulk()
+  await bulk().then(() => log.info("Import completed."))
 
-  log.info("Import completed.")
   log.info("Removing all not allowed files in upload bucket...")
 
   await unlistened()

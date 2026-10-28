@@ -14,7 +14,6 @@
 
 const {
   getDataset,
-  executeSqlFile,
   jobDone,
   logErrors,
 } = require("@pittica/google-bigquery-helpers")
@@ -25,14 +24,12 @@ const {
   getStorage,
 } = require("@pittica/google-cloud-storage-helpers")
 const {
-  getSqlFilePath,
   splitName,
-  getTemporaryTableSuffix,
   getTemporaryTableName,
   isDataCsv,
 } = require("@pittica/google-business-intelligence-helpers")
 const log = require("@pittica/logger-helpers")
-const { getJobMetadata } = require("../helpers/bigquery")
+const { getJobMetadata, executeSqlFile } = require("../helpers/bigquery")
 
 /**
  * Processes a file from the given buckets.
@@ -131,16 +128,7 @@ exports.run = async (
           .then(async () => {
             deleteFile(file)
 
-            return await executeSqlFile(
-              getSqlFilePath(filedata.name, config.files),
-              table.bigQuery,
-              {
-                table_suffix:
-                  filedata.version +
-                  "-" +
-                  getTemporaryTableSuffix(filedata.date),
-              }
-            )
+            return await executeSqlFile(filedata, table.bigQuery)
               .then(async (result) =>
                 result
                   ? clean
