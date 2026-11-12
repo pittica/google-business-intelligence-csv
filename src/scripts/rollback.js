@@ -19,4 +19,4 @@ const { moveFiles } = require("@pittica/google-cloud-storage-helpers")
  * @returns {void}
  */
 exports.rollback = async () =>
-  await moveFiles(config.bucket.temporary, config.bucket.upload)
+  await moveFiles(config?.bucket?.temporary, config?.bucket?.upload)

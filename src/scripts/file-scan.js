@@ -24,21 +24,26 @@ const { warn } = require("@pittica/logger-helpers")
  * @param {Date|string} date Date to scan.
  */
 exports.fileScan = async (date = null) => {
-  const day = getFormattedDate(date)
-  const files = await listFiles(config.bucket.upload, `${day}-`)
+  const day = getFormattedDate(date, config?.date?.format || "YYYY-MM-DD")
+  const files = await listFiles(
+    config?.bucket?.upload,
+    `${day}-`,
+    config?.projectId
+  )
     .then((response) => response.map((file) => splitName(file)))
     .catch(() => [])
   const check = config.order.filter(
     (file) =>
-      config.files.safe.includes(file) &&
+      config?.files?.safe?.includes(file) &&
       !files.some(
         ({ name, extension }) =>
           name === file && extension.toUpperCase() === "CSV"
       )
   )
   if (check.length > 1) {
-    warn(
-      `Missing files: ${check.map((file) => `"${file}"`).join(", ")}. Day: ${day}.`
-    )
+    warn([
+      `Missing files: ${check.map((file) => `"${file}"`).join(", ")}.`,
+      `Day: ${day}.`,
+    ])
   }
 }

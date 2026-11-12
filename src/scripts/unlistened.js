@@ -21,4 +21,4 @@ const {
  * @returns {void}
  */
 exports.unlistened = async () =>
-  await unlistened(config.bucket.upload, config.files.sql)
+  await unlistened(config?.bucket?.upload, config?.files?.sql)

@@ -20,6 +20,7 @@ const { bulkUnlistened } = require("./scripts/bulk-unlistened")
 const { day } = require("./scripts/day")
 const { file } = require("./scripts/file")
 const { fileScan } = require("./scripts/file-scan")
+const { fileList } = require("./scripts/file-list")
 const { fileCompare } = require("./scripts/file-compare")
 const { csv } = require("./scripts/csv")
 const { bootstrap } = require("./scripts/bootstrap")
@@ -36,6 +37,7 @@ exports.scripts = {
   day,
   file,
   fileScan,
+  fileList,
   fileCompare,
   csv,
   bootstrap,

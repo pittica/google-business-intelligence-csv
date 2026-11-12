@@ -25,10 +25,12 @@ const { warn } = require("@pittica/logger-helpers")
  * @returns {Promise<boolean>} A value indicating whether the files are consistent or not.
  */
 exports.fileCompare = async (date = null) => {
-  const day = getFormattedDate(date)
-  const files = await comparison(config.bucket.upload, day)
+  const day = getFormattedDate(date, config?.date?.format || "YYYY-MM-DD")
+  const files = await comparison(config?.bucket?.upload, day, config?.projectId)
     .then((results) =>
-      results.filter((file) => config.files.safe.includes(splitName(file).name))
+      results.filter((file) =>
+        config?.files?.safe?.includes(splitName(file).name)
+      )
     )
     .catch((err) => {
       warn(err.message)
