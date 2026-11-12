@@ -37,15 +37,14 @@ exports.fileList = async (date = null) => {
     day,
     config?.projectId
   )
-    .then(async (file) => {
-      return await txtContentToArray(
-        file,
-        config?.bucket?.upload,
-        config?.projectId
-      )
-        .then((files) => safeFilenamesProcess(files, config?.files?.safe || []))
-        .catch(() => [])
-    })
+    .then(
+      async (file) =>
+        await txtContentToArray(file, config?.bucket?.upload, config?.projectId)
+          .then((files) =>
+            safeFilenamesProcess(files, config?.files?.safe || [])
+          )
+          .catch(() => [])
+    )
     .catch(() => [])
   const files = await listFiles(config?.bucket?.upload, `${day}-`)
     .then((files) => safeFilenamesProcess(files, config?.files?.safe || []))
