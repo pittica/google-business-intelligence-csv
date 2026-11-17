@@ -51,7 +51,7 @@ exports.fileList = async (date = null) => {
 
     .catch(() => [])
 
-  const missing = match.filter((file) => !files.includes(file))
+  const missing = files.filter((file) => !match.includes(file))
 
   if (missing.length > 1) {
     warn([
